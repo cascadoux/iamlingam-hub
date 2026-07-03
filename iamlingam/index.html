@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Lingam — Author & Storyteller</title>
+<style>
+:root{--navy:#0d1f3c;--blue:#1a3a6b;--accent:#c8962a;--light:#f4f7fb;--white:#fff;--text:#1e2a3a;--muted:#6b7a8d;--border:#dce3ef}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--text);background:var(--white)}
+nav{background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100}
+.nav-logo{color:var(--white);font-size:1.3rem;font-weight:800;letter-spacing:.04em;text-decoration:none}
+.nav-logo span{color:var(--accent)}
+.nav-links a{color:rgba(255,255,255,.75);text-decoration:none;padding:0 1rem;font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.hero{min-height:92vh;background:linear-gradient(135deg,var(--navy) 0%,#1e3a6e 55%,#2a4a8a 100%);display:flex;align-items:center;padding:4rem 2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-100px;top:-100px;width:500px;height:500px;border-radius:50%;background:rgba(200,150,42,.06)}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+@media(max-width:768px){.hero-inner{grid-template-columns:1fr}.hero-img{display:none}}
+.hero-text .badge{display:inline-block;background:rgba(200,150,42,.18);border:1px solid rgba(200,150,42,.4);color:var(--accent);padding:6px 16px;border-radius:20px;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.hero-text h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:1rem}
+.hero-text h1 em{color:var(--accent);font-style:normal;display:block}
+.hero-text p{color:rgba(255,255,255,.8);font-size:1.1rem;line-height:1.75;margin-bottom:2rem;max-width:520px}
+.btn{display:inline-block;padding:13px 30px;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;text-decoration:none;transition:all .2s;border:none}
+.btn-gold{background:var(--accent);color:var(--navy)}
+.btn-gold:hover{background:#e0a830;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.4);margin-left:.8rem}
+.btn-outline:hover{border-color:var(--white)}
+.hero-img{text-align:center}
+.book-cover{width:260px;height:380px;background:linear-gradient(160deg,#8b4513 0%,#5c2d0a 60%,#3d1a06 100%);border-radius:4px 12px 12px 4px;box-shadow:8px 12px 40px rgba(0,0,0,.5),-2px 0 0 #2a1005;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;margin:0 auto;position:relative}
+.book-cover::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(200,150,42,.3);border-radius:2px}
+.book-cover .vol{color:rgba(200,150,42,.7);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem}
+.book-cover h2{color:var(--accent);font-size:1.3rem;font-weight:800;text-align:center;line-height:1.3;margin-bottom:.5rem}
+.book-cover .sub{color:rgba(255,255,255,.6);font-size:.8rem;text-align:center;font-style:italic;margin-bottom:1rem}
+.book-cover .author{color:rgba(255,255,255,.8);font-size:.85rem;font-weight:600;border-top:1px solid rgba(200,150,42,.3);padding-top:.8rem;margin-top:.5rem}
+.section{padding:80px 2rem}
+.section-alt{background:var(--light)}
+.container{max-width:1100px;margin:0 auto}
+.section-tag{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:.7rem}
+.section-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--navy);margin-bottom:1rem}
+.section-sub{color:var(--muted);font-size:1.05rem;line-height:1.7;max-width:560px;margin-bottom:3rem}
+.series-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.vol-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.vol-card:hover{box-shadow:0 8px 30px rgba(13,31,60,.1);transform:translateY(-3px)}
+.vol-card-top{height:8px;background:linear-gradient(90deg,var(--accent),#e8b84b)}
+.vol-card-body{padding:2rem}
+.vol-badge{display:inline-block;background:rgba(200,150,42,.12);color:var(--accent);font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.08em}
+.vol-card-body h3{font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:.4rem}
+.vol-card-body .subtitle{font-size:.85rem;color:var(--accent);font-style:italic;margin-bottom:.8rem}
+.vol-card-body p{color:var(--muted);font-size:.93rem;line-height:1.65}
+.vol-card-body .status{display:inline-block;margin-top:1.2rem;padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:600}
+.status-available{background:#e8f5ee;color:#2d7a4f}
+.status-writing{background:#fff3e0;color:#e65c00}
+.about-grid{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-portrait{width:100%;aspect-ratio:3/4;background:linear-gradient(160deg,var(--blue),var(--navy));border-radius:14px;display:flex;align-items:center;justify-content:center}
+.about-portrait svg{width:80px;height:80px;color:rgba(255,255,255,.3)}
+blockquote{border-left:3px solid var(--accent);padding-left:1.5rem;margin:2rem 0;font-size:1.15rem;font-style:italic;color:var(--text);line-height:1.7}
+.contact-strip{background:var(--navy);color:var(--white);text-align:center;padding:60px 2rem}
+.contact-strip h2{font-size:2rem;font-weight:800;margin-bottom:.8rem}
+.contact-strip p{color:rgba(255,255,255,.7);margin-bottom:2rem}
+footer{background:#070f1e;color:rgba(255,255,255,.5);text-align:center;padding:2rem;font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-logo">Lingam<span>.</span></a>
+  <div class="nav-links">
+    <a href="#series">The Series</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="badge">Author &amp; Storyteller</div>
+      <h1>Stories Rooted in<em>Truth &amp; Soil</em></h1>
+      <p>Historical fiction spanning continents, centuries, and souls. From the fields of Bihar to the shores of Trinidad — stories of faith, survival, and the unbreakable human spirit.</p>
+      <a href="#series" class="btn btn-gold">Explore the Series</a>
+      <a href="#about" class="btn btn-outline">Meet Lingam</a>
+    </div>
+    <div class="hero-img">
+      <div class="book-cover">
+        <div class="vol">Volume I</div>
+        <h2>Shakuntala of Barrackpore</h2>
+        <div class="sub">The Epic</div>
+        <div class="author">— Lingam —</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="series">
+  <div class="container">
+    <div class="section-tag">The Series</div>
+    <div class="section-title">Shakuntala of Barrackpore</div>
+    <div class="section-sub">A sweeping multi-volume historical fiction saga following one woman's extraordinary journey from colonial India to the New World — shaped by faith, hardship, and indomitable will.</div>
+    <div class="series-grid">
+      <div class="vol-card">
+        <div class="vol-card-top"></div>
+        <div class="vol-card-body">
+          <div class="vol-badge">Volume I</div>
+          <h3>The Epic</h3>
+          <div class="subtitle">Bihar, British Colonial India</div>
+          <p>Set in the heart of colonial Bihar, this is the story of Shakuntala — a Hindu woman whose grit is forged by faith and tested by the raw cruelty of British rule. Her journey begins with indentureship recruitment and ends with her boarding the Fatel Rozack, bound for Trinidad.</p>
+          <span class="status status-available">✓ Coming Soon</span>
+        </div>
+      </div>
+      <div class="vol-card">
+        <div class="vol-card-top"></div>
+        <div class="vol-card-body">
+          <div class="vol-badge">Volume II</div>
+          <h3>The Awakening</h3>
+          <div class="subtitle">Trinidad — The New World</div>
+          <p>Arriving on the shores of Trinidad, Shakuntala discovers a new world unlike anything she imagined. This volume explores discovery, Dharma, and what it means to rebuild identity in unfamiliar soil while honoring everything left behind.</p>
+          <span class="status status-writing">✍ In Progress (~500 pages)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section section-alt" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="about-portrait">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="40" cy="28" r="14"/><path d="M12 72 C12 52 68 52 68 72"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag">About the Author</div>
+        <div class="section-title">Lingam</div>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:1.5rem">Lingam is the pen name of an author whose roots run deep into the history of the Indo-Caribbean diaspora. His writing draws from the lived memory of indentureship, spiritual resilience, and the long arc of ancestral survival.</p>
+        <blockquote>"History doesn't repeat — but it breathes. These stories are that breath."</blockquote>
+        <p style="color:var(--muted);line-height:1.8;margin-top:1.5rem">Beyond the page, Lingam is the founder of the Lingram Family Trust — a family of organizations dedicated to community, education, and the elevation of marginalized voices. His work spans publishing, nonprofit advocacy, and platform building.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-strip" id="contact">
+  <h2>Stay Connected</h2>
+  <p>Be the first to know when Volume I releases. No spam — only stories.</p>
+  <form onsubmit="this.innerHTML='<p style=color:#c8962a;font-weight:700>Thank you! You will be the first to know.</p>';return false;" style="display:flex;gap:.8rem;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center">
+    <input type="email" placeholder="your@email.com" style="flex:1;min-width:240px;padding:13px 16px;border-radius:8px;border:none;font-size:.95rem"/>
+    <button type="submit" class="btn btn-gold">Notify Me</button>
+  </form>
+</div>
+
+<footer>
+  <p>© 2026 Lingam — All rights reserved &nbsp;|&nbsp; Lingram Inkwell Publishing Co &nbsp;|&nbsp; <a href="mailto:lingam@iamlingam.com">lingam@iamlingam.com</a></p>
+</footer>
+</body>
+</html>
