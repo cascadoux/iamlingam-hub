@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fatherhoodengagementhub.com/sitemap.xml
