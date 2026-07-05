@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FEH Analytics Dashboard — Admin</title>
+<style>
+:root{--navy:#0d1f3c;--green:#2d6a2d;--purple:#2d1b4e;--gold:#c8962a;--cream:#f4f7fb;--white:#fff;--text:#1e2a3a;--muted:#6b7a8d;--border:#dce3ef;--red:#c0392b;--light-green:#e8f5e8;--light-purple:#f0ebf8}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cream);color:var(--text)}
+header{background:linear-gradient(135deg,var(--navy),var(--purple));color:#fff;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:1.3rem;font-weight:800}header h1 span{color:var(--gold)}
+.live-badge{background:rgba(45,106,45,.4);border:1px solid rgba(45,106,45,.6);color:#7edd7e;padding:.3rem .8rem;border-radius:50px;font-size:.75rem;font-weight:600;display:flex;align-items:center;gap:.4rem}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#7edd7e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.container{max-width:1200px;margin:0 auto;padding:2rem}
+.section-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem}
+.kpi{background:#fff;border-radius:14px;padding:1.5rem;border:1px solid var(--border);text-align:center}
+.kpi-num{font-size:2.2rem;font-weight:900}
+.kpi-label{color:var(--muted);font-size:.8rem;margin-top:.3rem;text-transform:uppercase;letter-spacing:.04em}
+.kpi.navy .kpi-num{color:var(--navy)}
+.kpi.green .kpi-num{color:var(--green)}
+.kpi.purple .kpi-num{color:var(--purple)}
+.kpi.gold .kpi-num{color:var(--gold)}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+@media(max-width:768px){.charts-grid{grid-template-columns:1fr}}
+.chart-card{background:#fff;border-radius:14px;padding:1.5rem;border:1px solid var(--border)}
+.chart-title{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.bar-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.65rem}
+.bar-label{width:120px;font-size:.8rem;color:var(--text);flex-shrink:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+.bar-wrap{flex:1;background:var(--cream);border-radius:50px;height:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:50px;transition:width .6s ease}
+.bar-val{width:40px;text-align:right;font-size:.78rem;font-weight:600;color:var(--muted)}
+.bar-fill.navy{background:var(--navy)}
+.bar-fill.green{background:var(--green)}
+.bar-fill.purple{background:var(--purple)}
+.bar-fill.gold{background:var(--gold)}
+.bar-fill.red{background:var(--red)}
+.event-feed{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;margin-bottom:2rem}
+.event-feed-header{padding:1rem 1.5rem;background:var(--navy);color:#fff;font-size:.88rem;font-weight:600;display:flex;justify-content:space-between}
+.event-row{display:flex;gap:1rem;align-items:center;padding:.7rem 1.25rem;border-bottom:1px solid var(--border);font-size:.82rem}
+.event-row:last-child{border-bottom:none}
+.event-type{background:var(--cream);border-radius:6px;padding:.2rem .55rem;font-size:.72rem;font-weight:600;color:var(--navy)}
+.event-cat{color:var(--muted);min-width:100px}
+.event-val{flex:1;color:var(--text);font-style:italic}
+.event-ts{color:var(--muted);font-size:.72rem;white-space:nowrap}
+.report-section{background:#fff;border-radius:14px;padding:1.5rem;border:1px solid var(--border);margin-bottom:1.5rem}
+.btn{padding:.7rem 1.5rem;border-radius:8px;font-weight:700;font-size:.88rem;border:none;cursor:pointer;font-family:inherit;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:#1a3060}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#1a4d1a}
+.btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{background:#b8841a}
+.btn-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+.setup-alert{background:var(--light-green);border:1px solid rgba(45,106,45,.3);border-radius:10px;padding:1.25rem;margin-bottom:1.5rem}
+.setup-title{font-weight:700;color:var(--green);margin-bottom:.5rem;font-size:.95rem}
+.setup-steps{color:var(--text);font-size:.85rem;line-height:1.8}
+.setup-steps code{background:var(--cream);padding:.1rem .4rem;border-radius:4px;font-family:monospace;font-size:.8rem}
+.ga4-embed{background:var(--light-purple);border:1px solid rgba(45,27,78,.2);border-radius:10px;padding:1.5rem;text-align:center;margin-bottom:1.5rem}
+.ga4-embed h3{color:var(--purple);font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.ga4-embed p{color:var(--muted);font-size:.85rem;margin-bottom:1rem}
+.ga4-embed a{color:var(--purple);font-weight:600}
+.empty-state{text-align:center;padding:2.5rem;color:var(--muted)}
+.empty-state .icon{font-size:2.5rem;margin-bottom:.75rem}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Fatherhood Engagement Hub<span>™</span> — Analytics</h1>
+  <div class="live-badge"><div class="live-dot"></div> Live Data</div>
+</header>
+
+<div class="container">
+
+  <!-- SETUP ALERT -->
+  <div class="setup-alert" id="setupAlert">
+    <div class="setup-title">⚙️ One-Time Setup — Google Analytics 4</div>
+    <div class="setup-steps">
+      <strong>Step 1:</strong> Go to <a href="https://analytics.google.com" target="_blank">analytics.google.com</a> → Create Account → Add Property for <code>fatherhoodengagementhub.com</code><br/>
+      <strong>Step 2:</strong> Copy your <strong>Measurement ID</strong> (format: <code>G-XXXXXXXXXX</code>)<br/>
+      <strong>Step 3:</strong> Replace <code>G-XXXXXXXXXX</code> in the site's <code>&lt;head&gt;</code> with your real ID<br/>
+      <strong>Step 4:</strong> This dashboard reads from <strong>localStorage</strong> immediately — GA4 adds deeper insights in 24–48hrs<br/>
+      <div style="margin-top:.5rem"><strong>Sheet:</strong> <a href="https://docs.google.com/spreadsheets/d/1a2EeUofiKS5fVt0CMC9aNfSGIAizDr0V-YAv4WrZlgs" target="_blank">FEH Analytics Google Sheet</a> — form submissions logged here</div>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="section-title">📊 Key Metrics — This Session</div>
+  <div class="kpi-grid">
+    <div class="kpi navy"><div class="kpi-num" id="kpiViews">0</div><div class="kpi-label">Page Views</div></div>
+    <div class="kpi green"><div class="kpi-num" id="kpiForms">0</div><div class="kpi-label">Form Submissions</div></div>
+    <div class="kpi purple"><div class="kpi-num" id="kpiSearches">0</div><div class="kpi-label">Searches</div></div>
+    <div class="kpi gold"><div class="kpi-num" id="kpiClicks">0</div><div class="kpi-label">Service Clicks</div></div>
+  </div>
+
+  <div class="charts-grid">
+
+    <!-- FORM SUBMISSIONS BY CATEGORY -->
+    <div class="chart-card">
+      <div class="chart-title">📋 Form Submissions by Service Category</div>
+      <div id="formChart"><div class="empty-state"><div class="icon">📭</div>No submissions yet — they'll appear here as fathers use the portal</div></div>
+    </div>
+
+    <!-- POPULAR SEARCHES -->
+    <div class="chart-card">
+      <div class="chart-title">🔍 Top Search Queries</div>
+      <div id="searchChart"><div class="empty-state"><div class="icon">🔎</div>No searches recorded yet — search queries appear here in real time</div></div>
+    </div>
+
+    <!-- PAGE VIEWS BREAKDOWN -->
+    <div class="chart-card">
+      <div class="chart-title">🏠 Page Views by Section</div>
+      <div id="pageChart"><div class="empty-state"><div class="icon">📄</div>Visit the main site first — page views will appear here</div></div>
+    </div>
+
+    <!-- MOST CLICKED SERVICES -->
+    <div class="chart-card">
+      <div class="chart-title">🔗 Most Clicked Services</div>
+      <div id="serviceChart"><div class="empty-state"><div class="icon">👆</div>Service click data appears here as fathers engage with the site</div></div>
+    </div>
+
+  </div>
+
+  <!-- GA4 EMBED PLACEHOLDER -->
+  <div class="ga4-embed">
+    <h3>📈 Google Analytics 4 — Real-Time Visitor Dashboard</h3>
+    <p>Once your GA4 Measurement ID is added to the site, embed your Looker Studio report here for full visitor analytics — geographic data, device types, session duration, bounce rate, and real-time active users.</p>
+    <a href="https://lookerstudio.google.com" target="_blank">Open Looker Studio (Free) →</a>
+  </div>
+
+  <!-- LIVE EVENT FEED -->
+  <div class="section-title">⚡ Live Event Feed</div>
+  <div class="event-feed">
+    <div class="event-feed-header">
+      <span>Recent Events</span>
+      <span id="eventCount" style="opacity:.65">loading...</span>
+    </div>
+    <div id="eventFeed"></div>
+  </div>
+
+  <!-- WEEKLY REPORT -->
+  <div class="section-title">📧 Weekly Report</div>
+  <div class="report-section">
+    <p style="color:var(--muted);font-size:.88rem;line-height:1.7">Every Monday at 8:00 AM, a summary report is automatically emailed to <strong>cascadoux1962@gmail.com</strong>. The report includes: total page views, top form submission categories, top search queries, most-clicked services, and recommendations for content improvement.</p>
+    <div style="margin-top:1rem;background:var(--cream);border-radius:10px;padding:1.25rem">
+      <div style="font-weight:700;font-size:.88rem;color:var(--navy);margin-bottom:.5rem">📅 Weekly Report Schedule</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.8">
+        <strong>Frequency:</strong> Every Monday · 8:00 AM UTC<br/>
+        <strong>Recipient:</strong> cascadoux1962@gmail.com<br/>
+        <strong>Sent via:</strong> Gmail integration (Lord Shiva agent)<br/>
+        <strong>Data source:</strong> Google Sheets — FEH Analytics<br/>
+        <strong>Sheet:</strong> <a href="https://docs.google.com/spreadsheets/d/1a2EeUofiKS5fVt0CMC9aNfSGIAizDr0V-YAv4WrZlgs" target="_blank" style="color:var(--green)">FEH Analytics Tracker</a>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-navy" onclick="generateReport()">📊 Preview This Week's Report</button>
+      <button class="btn btn-green" onclick="copyReport()">📋 Copy Report Data</button>
+    </div>
+    <div id="reportPreview" style="display:none;margin-top:1.25rem;background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.25rem;font-family:monospace;font-size:.8rem;white-space:pre-wrap;color:var(--text)"></div>
+  </div>
+
+</div>
+
+<script>
+// Read from parent window's FEHTrack if available, else from localStorage directly
+function getStats() {
+  try {
+    if (window.opener && window.opener.FEHTrack) return window.opener.FEHTrack.getStats();
+  } catch(e){}
+  return JSON.parse(localStorage.getItem('feh_agg') || '{}');
+}
+
+function getEvents() {
+  try {
+    if (window.opener && window.opener.FEHTrack) return window.opener.FEHTrack.getEvents();
+  } catch(e){}
+  return JSON.parse(localStorage.getItem('feh_events') || '[]');
+}
+
+const COLORS = ['navy','green','purple','gold','red'];
+
+function renderBar(label, value, max, colorClass) {
+  const pct = max > 0 ? Math.round((value/max)*100) : 0;
+  return `<div class="bar-row">
+    <div class="bar-label" title="${label}">${label}</div>
+    <div class="bar-wrap"><div class="bar-fill ${colorClass}" style="width:${pct}%"></div></div>
+    <div class="bar-val">${value}</div>
+  </div>`;
+}
+
+function renderChart(elId, entries, colorClass, emptyMsg) {
+  const el = document.getElementById(elId);
+  if (!entries || !entries.length) {
+    el.innerHTML = `<div class="empty-state"><div class="icon">📭</div>${emptyMsg}</div>`;
+    return;
+  }
+  const max = Math.max(...entries.map(e=>e[1]));
+  el.innerHTML = entries.map((e,i) => renderBar(e[0], e[1], max, COLORS[i % COLORS.length] || colorClass)).join('');
+}
+
+function refreshDashboard() {
+  const stats = getStats();
+  const events = getEvents();
+
+  // KPIs
+  document.getElementById('kpiViews').textContent = stats.pageViews || 0;
+  document.getElementById('kpiForms').textContent = stats.formSubmissions || 0;
+  document.getElementById('kpiSearches').textContent = stats.totalSearches || 0;
+  const svcClicks = Object.values(stats.serviceClicks || {}).reduce((a,b)=>a+b,0);
+  document.getElementById('kpiClicks').textContent = svcClicks;
+
+  // Form categories chart
+  const formEntries = Object.entries(stats.formCategories || {}).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  renderChart('formChart', formEntries, 'navy', 'No form submissions yet');
+
+  // Search queries
+  const searchEntries = Object.entries(stats.searchQueries || {}).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  renderChart('searchChart', searchEntries, 'purple', 'No searches yet');
+
+  // Page views
+  const pageEntries = Object.entries(stats.pageBreakdown || {}).sort((a,b)=>b[1]-a[1]);
+  renderChart('pageChart', pageEntries, 'green', 'Visit the main site to record page views');
+
+  // Service clicks
+  const svcEntries = Object.entries(stats.serviceClicks || {}).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  renderChart('serviceChart', svcEntries, 'gold', 'No service clicks yet');
+
+  // Event feed
+  const feed = document.getElementById('eventFeed');
+  const recent = events.slice(-20).reverse();
+  document.getElementById('eventCount').textContent = events.length + ' total events';
+  if (!recent.length) {
+    feed.innerHTML = '<div class="event-row" style="color:var(--muted)">No events recorded yet — visit the main site and interact with it</div>';
+  } else {
+    feed.innerHTML = recent.map(e => `
+      <div class="event-row">
+        <span class="event-type">${e.event}</span>
+        <span class="event-cat">${e.category}</span>
+        <span class="event-val">${e.value || '—'}</span>
+        <span class="event-ts">${new Date(e.ts).toLocaleTimeString()}</span>
+      </div>`).join('');
+  }
+}
+
+function generateReport() {
+  const stats = getStats();
+  const topSearches = Object.entries(stats.searchQueries || {}).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const topForms = Object.entries(stats.formCategories || {}).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const topServices = Object.entries(stats.serviceClicks || {}).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const report = `
+FATHERHOOD ENGAGEMENT HUB™ — WEEKLY ANALYTICS REPORT
+Generated: ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}
+═══════════════════════════════════════════════════
+
+📊 KEY METRICS
+  • Total Page Views:       ${stats.pageViews || 0}
+  • Form Submissions:       ${stats.formSubmissions || 0}
+  • Search Queries:         ${stats.totalSearches || 0}
+  • Service Link Clicks:    ${Object.values(stats.serviceClicks || {}).reduce((a,b)=>a+b,0)}
+
+📋 FORM SUBMISSIONS BY NEED
+${topForms.length ? topForms.map(([k,v]) => `  • ${k.padEnd(25)} ${v}`).join('\n') : '  No submissions this period'}
+
+🔍 TOP SEARCH QUERIES
+${topSearches.length ? topSearches.map(([k,v]) => `  • "${k.padEnd(22)}" ${v} searches`).join('\n') : '  No searches this period'}
+
+🔗 MOST CLICKED SERVICES
+${topServices.length ? topServices.map(([k,v]) => `  • ${k.padEnd(25)} ${v} clicks`).join('\n') : '  No service clicks this period'}
+
+📄 PAGE VIEWS BY SECTION
+${Object.entries(stats.pageBreakdown || {}).map(([k,v]) => `  • ${k.padEnd(15)} ${v} views`).join('\n') || '  No page data'}
+
+💡 RECOMMENDATIONS
+${(stats.formSubmissions || 0) === 0 ? '  → Promote the Father Portal more prominently on social media\n' : ''}${topSearches[0] ? `  → Most searched: "${topSearches[0][0]}" — ensure this service is prominently displayed\n` : ''}${(stats.totalSearches || 0) > (stats.formSubmissions || 0) ? '  → Many fathers are searching but not submitting forms — reduce form friction\n' : ''}
+═══════════════════════════════════════════════════
+Sent to: cascadoux1962@gmail.com | fatherhoodengagementhub.com
+`.trim();
+
+  document.getElementById('reportPreview').textContent = report;
+  document.getElementById('reportPreview').style.display = 'block';
+}
+
+function copyReport() {
+  generateReport();
+  const text = document.getElementById('reportPreview').textContent;
+  navigator.clipboard.writeText(text).then(() => alert('Report copied to clipboard!'));
+}
+
+// Auto-refresh every 10 seconds
+refreshDashboard();
+setInterval(refreshDashboard, 10000);
+</script>
+</body>
+</html>
