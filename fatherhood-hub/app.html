@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Fatherhood Engagement Hub™ — From Father to Dad</title>
+<meta name="description" content="On your journey to fatherhood, we bring fatherhood to you. Support, resources, and community for every father."/>
+<style>
+:root{
+  --navy:#0d1f3c;
+  --navy2:#1a3d2b;
+  --purple:#2d1b4e;
+  --gold:#c8962a;
+  --green:#2d6a2d;
+  --light-green:#e8f5e8;
+  --light-purple:#f0ebf8;
+  --cream:#f4f7fb;
+  --white:#ffffff;
+  --text:#1e2a3a;
+  --muted:#6b7a8d;
+  --border:#dce3ef;
+  --success:#2d6a2d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--cream)}
+
+/* NAV */
+nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{color:#fff;font-size:1.1rem;font-weight:800;letter-spacing:-.01em;cursor:pointer;line-height:1.2}
+.nav-logo span{color:var(--gold)}
+.nav-logo small{display:block;font-size:.65rem;font-weight:400;color:rgba(255,255,255,.55);letter-spacing:.05em}
+.nav-links{display:flex;gap:.25rem;align-items:center}
+.nav-links button{background:none;border:none;color:rgba(255,255,255,.8);font-size:.85rem;padding:.5rem .75rem;border-radius:6px;cursor:pointer;transition:all .2s;font-family:inherit}
+.nav-links button:hover,.nav-links button.active{background:rgba(255,255,255,.12);color:#fff}
+.nav-donate{background:var(--gold)!important;color:var(--navy)!important;font-weight:700!important;border-radius:6px!important}
+.nav-donate:hover{background:#b8841a!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+
+/* SEARCH BAR */
+.search-wrap{background:var(--purple);padding:1rem 1.5rem}
+.search-inner{max-width:800px;margin:0 auto;position:relative}
+.search-box{width:100%;padding:.85rem 1.25rem .85rem 3rem;border-radius:50px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:.95rem;font-family:inherit;outline:none;transition:all .2s}
+.search-box::placeholder{color:rgba(255,255,255,.55)}
+.search-box:focus{background:rgba(255,255,255,.18);border-color:var(--gold)}
+.search-icon{position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.6)}
+.search-hint{text-align:center;color:rgba(255,255,255,.5);font-size:.75rem;margin-top:.5rem}
+.search-results{display:none;position:absolute;top:calc(100% + .5rem);left:0;right:0;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.2);overflow:hidden;z-index:100;max-height:320px;overflow-y:auto}
+.search-result-item{padding:.85rem 1.25rem;cursor:pointer;border-bottom:1px solid var(--border);display:flex;gap:.75rem;align-items:flex-start;transition:background .15s}
+.search-result-item:hover{background:var(--cream)}
+.search-result-item:last-child{border-bottom:none}
+.sri-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+.sri-title{font-weight:600;font-size:.9rem;color:var(--navy)}
+.sri-desc{font-size:.78rem;color:var(--muted);margin-top:.1rem}
+
+/* PAGE SECTIONS */
+.page{display:none}
+.page.active{display:block}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 50%,var(--purple) 100%);color:#fff;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
+.hero-badge{display:inline-block;background:rgba(200,150,42,.25);border:1px solid rgba(200,150,42,.4);color:var(--gold);padding:.35rem 1rem;border-radius:50px;font-size:.78rem;font-weight:600;letter-spacing:.05em;margin-bottom:1.5rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:1rem}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero-tagline{font-size:1.15rem;color:rgba(255,255,255,.8);line-height:1.7;max-width:600px;margin:0 auto 2rem}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.75rem;border-radius:8px;font-weight:700;font-size:.95rem;text-decoration:none;transition:all .2s;cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:var(--gold);color:var(--navy)}
+.btn-primary:hover{background:#b8841a;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}
+.btn-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#1a4d1a;transform:translateY(-1px)}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-purple:hover{background:#1d0f34}
+
+/* STATS BAR */
+.stats-bar{background:var(--navy2);padding:2rem 1.5rem}
+.stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;text-align:center}
+.stat-item{}
+.stat-num{font-size:2rem;font-weight:900;color:var(--gold)}
+.stat-label{font-size:.8rem;color:rgba(255,255,255,.65);margin-top:.25rem;text-transform:uppercase;letter-spacing:.04em}
+
+/* SERVICES SECTION */
+.section{padding:4rem 1.5rem}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-block;background:var(--light-green);color:var(--green);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .9rem;border-radius:50px;margin-bottom:.75rem}
+.section-tag.purple{background:var(--light-purple);color:var(--purple)}
+.section-tag.navy{background:#e8eef8;color:var(--navy)}
+.section-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:.75rem}
+.section-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:600px;margin-bottom:2.5rem}
+
+/* SERVICE CARDS */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.service-card{background:#fff;border-radius:16px;padding:1.75rem;border:1px solid var(--border);transition:transform .2s,box-shadow .2s;position:relative}
+.service-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(13,31,60,.1)}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:16px 16px 0 0;background:var(--navy)}
+.service-card.green::before{background:var(--green)}
+.service-card.purple::before{background:var(--purple)}
+.service-card.gold::before{background:var(--gold)}
+.sc-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;background:#e8eef8}
+.sc-icon.green{background:var(--light-green)}
+.sc-icon.purple{background:var(--light-purple)}
+.sc-icon.gold{background:#fff8e8}
+.sc-icon svg{width:24px;height:24px}
+.sc-title{font-weight:700;font-size:1.05rem;color:var(--navy);margin-bottom:.4rem}
+.sc-desc{color:var(--muted);font-size:.88rem;line-height:1.6;margin-bottom:1rem}
+.sc-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--green);font-size:.82rem;font-weight:600;text-decoration:none;cursor:pointer}
+.sc-link:hover{color:#1a4d1a}
+.sc-link svg{width:14px;height:14px}
+
+/* CONTACT CHIPS — inline quick contacts */
+.contact-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--cream);border:1px solid var(--border);border-radius:50px;padding:.3rem .75rem;font-size:.75rem;color:var(--text);text-decoration:none;transition:all .15s;cursor:pointer}
+.chip:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chip svg{width:12px;height:12px}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-visual{background:linear-gradient(135deg,var(--navy),var(--purple));border-radius:20px;padding:3rem 2rem;text-align:center;color:#fff}
+.about-visual-icon{font-size:4rem;margin-bottom:1rem}
+.about-visual h3{font-size:1.5rem;font-weight:800;margin-bottom:.5rem}
+.about-visual p{color:rgba(255,255,255,.75);font-size:.9rem;line-height:1.6}
+.values-list{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem}
+.value-item{display:flex;gap:.75rem;align-items:flex-start}
+.value-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.4rem}
+.value-text h4{font-weight:700;color:var(--navy);font-size:.95rem}
+.value-text p{color:var(--muted);font-size:.85rem;line-height:1.5;margin-top:.2rem}
+
+/* FORMS */
+.form-wrap{background:#fff;border-radius:16px;padding:2.5rem;border:1px solid var(--border);max-width:600px;margin:0 auto}
+.form-title{font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom.25rem}
+.form-sub{color:var(--muted);font-size:.88rem;margin-bottom:1.5rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-weight:600;font-size:.85rem;color:var(--text);margin-bottom:.4rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:8px;font-size:.9rem;font-family:inherit;color:var(--text);background:#fff;transition:border .2s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--navy)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+.form-note{background:var(--light-green);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--green);margin-bottom:1.25rem;display:flex;gap:.5rem;align-items:flex-start}
+.submit-btn{width:100%;background:var(--navy);color:#fff;border:none;padding:1rem;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s;font-family:inherit}
+.submit-btn:hover{background:#1a3060}
+.submit-btn.green{background:var(--green)}
+.submit-btn.green:hover{background:#1a4d1a}
+.submit-btn.purple{background:var(--purple)}
+.submit-btn.purple:hover{background:#1d0f34}
+.success-msg{display:none;background:var(--light-green);border:1px solid var(--green);border-radius:10px;padding:1.5rem;text-align:center;color:var(--green)}
+.success-msg svg{width:40px;height:40px;margin-bottom:.75rem;display:block;margin-left:auto;margin-right:auto}
+
+/* SUPPORTERS */
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;margin-bottom:2.5rem}
+.role-card{background:#fff;border-radius:14px;padding:1.5rem;border:1px solid var(--border);border-top:3px solid var(--purple)}
+.role-icon{width:44px;height:44px;background:var(--light-purple);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem}
+.role-title{font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.role-desc{color:var(--muted);font-size:.84rem;line-height:1.55}
+
+/* DONATE */
+.donate-amounts{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1.25rem}
+.amount-btn{padding:.65rem 1.25rem;border-radius:8px;border:2px solid var(--border);background:#fff;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s;font-family:inherit;color:var(--text)}
+.amount-btn.active,.amount-btn:hover{border-color:var(--green);background:var(--light-green);color:var(--green)}
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+.impact-card{background:var(--light-green);border-radius:12px;padding:1.25rem;text-align:center}
+.impact-amt{font-size:1.3rem;font-weight:900;color:var(--green)}
+.impact-desc{font-size:.82rem;color:var(--text);margin-top:.3rem;line-height:1.4}
+
+/* CONTACT PAGE */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-info-card{background:#fff;border-radius:16px;padding:2rem;border:1px solid var(--border);height:fit-content}
+.contact-method{display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid var(--border)}
+.contact-method:last-child{border-bottom:none}
+.cm-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cm-label{font-weight:700;font-size:.85rem;color:var(--navy)}
+.cm-value{color:var(--muted);font-size:.88rem;margin-top:.15rem}
+.cm-value a{color:var(--green);text-decoration:none}
+.cm-value a:hover{text-decoration:underline}
+
+/* FOOTER */
+footer{background:var(--navy);color:rgba(255,255,255,.7);padding:3rem 1.5rem 1.5rem}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+@media(max-width:768px){.footer-top{grid-template-columns:1fr}}
+.footer-brand h3{color:#fff;font-size:1.1rem;font-weight:800;margin-bottom:.5rem}
+.footer-brand h3 span{color:var(--gold)}
+.footer-brand p{font-size:.85rem;line-height:1.65;max-width:320px}
+.footer-col h4{color:#fff;font-weight:700;font-size:.9rem;margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-col ul li button{background:none;border:none;color:rgba(255,255,255,.65);font-size:.85rem;cursor:pointer;font-family:inherit;text-align:left;padding:0;transition:color .2s}
+.footer-col ul li button:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;font-size:.78rem}
+.footer-bottom a{color:var(--gold);text-decoration:none}
+
+/* PILLS / TAGS */
+.tag-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.tag{background:var(--cream);border:1px solid var(--border);border-radius:50px;padding:.25rem .7rem;font-size:.75rem;color:var(--muted)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;inset:64px 0 0;background:var(--navy);flex-direction:column;padding:1.5rem;gap:.5rem;z-index:999}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  .hero{padding:3.5rem 1rem 3rem}
+  .section{padding:2.5rem 1rem}
+  .search-wrap{padding:.75rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      Fatherhood Engagement Hub<span>™</span>
+      <small>From Father to Dad</small>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <button onclick="showPage('home')" class="active" id="nav-home">Home</button>
+      <button onclick="showPage('about')" id="nav-about">About</button>
+      <button onclick="showPage('portal')" id="nav-portal">Father Portal</button>
+      <button onclick="showPage('supporters')" id="nav-supporters">Support Us</button>
+      <button onclick="showPage('donate')" id="nav-donate" class="nav-donate">Donate</button>
+      <button onclick="showPage('contact')" id="nav-contact">Contact</button>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <div class="search-inner">
+    <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input class="search-box" id="searchBox" type="text" placeholder="Search for help, resources, services..." autocomplete="off" oninput="handleSearch(this.value)" onblur="setTimeout(()=>closeSearch(),200)"/>
+    <div id="searchResults" class="search-results"></div>
+    <div class="search-hint">Try: "transportation", "housing", "visitation", "legal help", "donate"</div>
+  </div>
+</div>
+
+<!-- ═══ HOME PAGE ═══ -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">✦ Supporting Fathers Since Day One</div>
+      <h1>On Your Journey to Fatherhood,<br>We Bring <em>Fatherhood to You</em></h1>
+      <p class="hero-tagline">From father to dad — we are at your side in your journey. Every resource, every service, every contact — right where you need it, when you need it.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" onclick="showPage('portal')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          I'm a Father — Get Help
+        </button>
+        <button class="btn btn-outline" onclick="showPage('supporters')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          I Want to Help
+        </button>
+        <button class="btn btn-green" onclick="showPage('donate')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Donate Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-num">1,200+</div><div class="stat-label">Fathers Supported</div></div>
+      <div class="stat-item"><div class="stat-num">94%</div><div class="stat-label">Reconnection Rate</div></div>
+      <div class="stat-item"><div class="stat-num">48</div><div class="stat-label">Partner Organizations</div></div>
+      <div class="stat-item"><div class="stat-num">$0</div><div class="stat-label">Cost to Fathers</div></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-tag">Core Services</div>
+      <h2 class="section-title">Everything a Father Needs. All in One Place.</h2>
+      <p class="section-sub">We bring the resources directly to you — with the people to call, the links to click, and the support to lean on right beside every service.</p>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="sc-icon">
+            <svg fill="none" stroke="#0d1f3c" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="sc-title">Transportation</div>
+          <div class="sc-desc">Rides to doctor's appointments, court dates, jobs, and all case-plan destinations. We get you where you need to be.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Request a Ride</a>
+            <a class="chip" href="tel:+1-800-555-FATHERHOOD"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 5.95 5.95l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>Call Us</a>
+          </div>
+        </div>
+
+        <div class="service-card green">
+          <div class="sc-icon green">
+            <svg fill="none" stroke="#2d6a2d" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="sc-title">Housing Support</div>
+          <div class="sc-desc">Emergency housing referrals, transitional housing navigation, and support finding stable living arrangements for you and your family.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>Apply Now</a>
+            <a class="chip" href="mailto:housing@fatherhoodengagementhub.com"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a>
+          </div>
+        </div>
+
+        <div class="service-card purple">
+          <div class="sc-icon purple">
+            <svg fill="none" stroke="#2d1b4e" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="sc-title">Case Plan Navigation</div>
+          <div class="sc-desc">We walk with you through every step of your DCF/Child Welfare case plan — court prep, compliance, documentation, and milestone tracking.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Start Your Case</a>
+            <a class="chip" onclick="showPage('contact')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Talk to Us</a>
+          </div>
+        </div>
+
+        <div class="service-card gold">
+          <div class="sc-icon gold">
+            <svg fill="none" stroke="#c8962a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="sc-title">Visitation Support</div>
+          <div class="sc-desc">Visitation bags stocked with goodies, transportation to visitation sites, and advocacy support to keep your connections with your children strong.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Schedule Visit</a>
+          </div>
+        </div>
+
+        <div class="service-card green">
+          <div class="sc-icon green">
+            <svg fill="none" stroke="#2d6a2d" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <div class="sc-title">Employment & Education</div>
+          <div class="sc-desc">Job placement assistance, GED support, vocational training referrals, resume help, and connections to employers who value second chances.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Find a Job</a>
+            <a class="chip" href="mailto:jobs@fatherhoodengagementhub.com"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a>
+          </div>
+        </div>
+
+        <div class="service-card purple">
+          <div class="sc-icon purple">
+            <svg fill="none" stroke="#2d1b4e" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="sc-title">Legal Support</div>
+          <div class="sc-desc">Navigation through family court, understanding your rights, legal aid referrals, and representation connections for fathers with entanglements.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Get Legal Help</a>
+            <a class="chip" onclick="showPage('contact')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 5.95 5.95l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>Call Now</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="sc-icon">
+            <svg fill="none" stroke="#0d1f3c" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="sc-title">Health & Wellness</div>
+          <div class="sc-desc">Traveling shower, grooming services, mental health referrals, substance abuse support, and access to primary care — meeting you where you are.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Schedule Services</a>
+          </div>
+        </div>
+
+        <div class="service-card gold">
+          <div class="sc-icon gold">
+            <svg fill="none" stroke="#c8962a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="sc-title">Food & Basic Needs</div>
+          <div class="sc-desc">Emergency food assistance, connections to food banks and pantries, SNAP navigation, and access to community meal programs.</div>
+          <div class="contact-chips">
+            <a class="chip" onclick="showPage('portal')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>Request Help</a>
+            <a class="chip" onclick="showPage('contact')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══ ABOUT PAGE ═══ -->
+<div class="page" id="page-about">
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-tag navy">Our Story</div>
+      <h2 class="section-title">We Believe Every Father Can Be Dad</h2>
+      <div class="about-grid">
+        <div>
+          <p class="section-sub">The Fatherhood Engagement Hub™ was built because fathers are too often forgotten in the child welfare and family support system. We exist to change that — to stand at a father's side through every step of his journey back to his children.</p>
+          <div class="values-list">
+            <div class="value-item"><div class="value-dot"></div><div class="value-text"><h4>No Father Left Behind</h4><p>Every man who comes to us gets the same level of support — regardless of circumstance, background, or case status.</p></div></div>
+            <div class="value-item"><div class="value-dot" style="background:var(--green)"></div><div class="value-text"><h4>Resources Right Where You Are</h4><p>We bring services to fathers — transportation, grooming, supplies, food — meeting them exactly where they stand.</p></div></div>
+            <div class="value-item"><div class="value-dot" style="background:var(--purple)"></div><div class="value-text"><h4>Partnership With Daddy's Chariot Inc.</h4><p>Our non-profit partner provides direct logistics support — rides, visitation bags, and field services for fathers without means.</p></div></div>
+            <div class="value-item"><div class="value-dot"></div><div class="value-text"><h4>Whole-Family Thinking</h4><p>Supporting the father supports the child. Every service we provide moves the family closer together.</p></div></div>
+          </div>
+          <div style="margin-top:2rem">
+            <button class="btn btn-primary" onclick="showPage('portal')">Start Your Journey</button>
+            <button class="btn btn-green" style="margin-left:.75rem" onclick="showPage('donate')">Support Our Mission</button>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="about-visual-icon">👨‍👧‍👦</div>
+          <h3>From Father to Dad</h3>
+          <p>The journey from being a father — a biological title — to being Dad — an earned relationship — is the most important journey a man can take.</p>
+          <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem">
+            <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.85rem 1rem;text-align:left">
+              <div style="color:var(--gold);font-weight:700;font-size:.85rem">Connected to Daddy's Chariot Inc.</div>
+              <div style="color:rgba(255,255,255,.65);font-size:.78rem;margin-top:.2rem">Logistics and direct services non-profit</div>
+            </div>
+            <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.85rem 1rem;text-align:left">
+              <div style="color:var(--gold);font-weight:700;font-size:.85rem">48 Partner Organizations</div>
+              <div style="color:rgba(255,255,255,.65);font-size:.78rem;margin-top:.2rem">Legal, housing, employment, health, courts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ FATHER PORTAL PAGE ═══ -->
+<div class="page" id="page-portal">
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-tag">Father Portal</div>
+      <h2 class="section-title">Start Here. We've Got You.</h2>
+      <p class="section-sub">Fill out this form and we'll contact you within 24 hours to connect you with the services you need. Everything you share is private.</p>
+      <div class="form-wrap">
+        <div class="form-note">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Your information is completely confidential and used only to connect you with support services.
+        </div>
+        <form id="portalForm" action="https://formspree.io/f/mjgqjljr" method="POST">
+          <div class="form-row">
+            <div class="form-group"><label>First Name *</label><input type="text" name="first_name" required placeholder="Your first name"/></div>
+            <div class="form-group"><label>Last Name *</label><input type="text" name="last_name" required placeholder="Your last name"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" required placeholder="(555) 000-0000"/></div>
+            <div class="form-group"><label>Email Address</label><input type="email" name="email" placeholder="your@email.com"/></div>
+          </div>
+          <div class="form-group">
+            <label>City / County *</label>
+            <input type="text" name="location" required placeholder="Where do you live?"/>
+          </div>
+          <div class="form-group">
+            <label>What do you need most right now? *</label>
+            <select name="primary_need" required>
+              <option value="">Select your most urgent need</option>
+              <option value="transportation">Transportation to appointments / court / work</option>
+              <option value="housing">Housing assistance</option>
+              <option value="case_plan">Help with my DCF/Child Welfare case plan</option>
+              <option value="visitation">Visitation support</option>
+              <option value="employment">Employment / job help</option>
+              <option value="legal">Legal support / family court</option>
+              <option value="health">Health & wellness services</option>
+              <option value="food">Food / basic needs</option>
+              <option value="multiple">Multiple needs — I need a full assessment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell us more about your situation</label>
+            <textarea name="situation" placeholder="Share whatever you're comfortable sharing. The more we know, the better we can help you..."></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="Father Portal — New Support Request"/>
+          <input type="hidden" name="_replyto" value="cascadoux1962@gmail.com"/>
+          <button type="submit" class="submit-btn">Submit — We'll Contact You Within 24 Hours</button>
+        </form>
+        <div class="success-msg" id="portalSuccess">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <strong>Thank you. We received your request.</strong><br/>
+          Someone from our team will contact you within 24 hours. You are not alone in this journey.
+        </div>
+        <div style="margin-top:1.5rem;text-align:center">
+          <p style="color:var(--muted);font-size:.82rem">Need help right now?</p>
+          <div class="contact-chips" style="justify-content:center;margin-top:.5rem">
+            <a class="chip" href="tel:+18005550000"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 5.95 5.95l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>Call (800) 555-0000</a>
+            <a class="chip" href="mailto:help@fatherhoodengagementhub.com"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ SUPPORTERS PAGE ═══ -->
+<div class="page" id="page-supporters">
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-tag purple">Supporters & Volunteers</div>
+      <h2 class="section-title">Join the Village That Raises a Father</h2>
+      <p class="section-sub">It takes a community to support a father on his journey. Whether you volunteer your time, skills, or resources — you are part of this mission.</p>
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-icon"><svg fill="none" stroke="#2d1b4e" stroke-width="2" width="22" height="22" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="role-title">Driver / Transporter</div>
+          <div class="role-desc">Provide rides to fathers for court dates, appointments, job interviews, and visitations. Flexible hours — your schedule, your route.</div>
+          <div class="tag-row"><span class="tag">Flexible</span><span class="tag">Vehicle Required</span></div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon"><svg fill="none" stroke="#2d1b4e" stroke-width="2" width="22" height="22" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="role-title">Case Plan Coach</div>
+          <div class="role-desc">Help fathers understand and navigate their child welfare case plans. Training provided. Make a direct difference in reunification outcomes.</div>
+          <div class="tag-row"><span class="tag">Training Provided</span><span class="tag">Weekly Commitment</span></div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon"><svg fill="none" stroke="#2d1b4e" stroke-width="2" width="22" height="22" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="role-title">Employment Mentor</div>
+          <div class="role-desc">Connect fathers with job opportunities, help with resumes, interview prep, and workplace navigation. Your professional network matters.</div>
+          <div class="tag-row"><span class="tag">Remote OK</span><span class="tag">Any Industry</span></div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon"><svg fill="none" stroke="#2d1b4e" stroke-width="2" width="22" height="22" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="role-title">Resource Donor</div>
+          <div class="role-desc">Donate hygiene items, clothing, food, or supplies for our visitation bags and traveling services. Every item goes directly to a father in need.</div>
+          <div class="tag-row"><span class="tag">In-Kind Donations</span><span class="tag">Drop-Off Available</span></div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon"><svg fill="none" stroke="#2d1b4e" stroke-width="2" width="22" height="22" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="role-title">Legal Aid Partner</div>
+          <div class="role-desc">Attorneys and paralegals — volunteer your expertise or join our referral network for fathers navigating family court without representation.</div>
+          <div class="tag-row"><span class="tag">Legal Professionals</span><span class="tag">Pro Bono</span></div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon"><svg fill="none" stroke="#2d1b4e" stroke-width="2" width="22" height="22" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="role-title">Community Advocate</div>
+          <div class="role-desc">Spread the word, connect us with community resources and organizations, and help us find fathers who need support before they fall through the cracks.</div>
+          <div class="tag-row"><span class="tag">Outreach</span><span class="tag">Flexible</span></div>
+        </div>
+      </div>
+
+      <div class="form-wrap">
+        <div class="form-title" style="margin-bottom:.25rem">Join Our Team</div>
+        <p class="form-sub">Tell us how you'd like to help and we'll reach out with next steps.</p>
+        <form id="volunteerForm" action="https://formspree.io/f/mjgqjljr" method="POST">
+          <div class="form-row">
+            <div class="form-group"><label>Your Name *</label><input type="text" name="name" required placeholder="Full name"/></div>
+            <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="your@email.com"/></div>
+          </div>
+          <div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="(555) 000-0000"/></div>
+          <div class="form-group">
+            <label>How would you like to help? *</label>
+            <select name="volunteer_role" required>
+              <option value="">Choose your role</option>
+              <option>Driver / Transporter</option>
+              <option>Case Plan Coach</option>
+              <option>Employment Mentor</option>
+              <option>Resource Donor</option>
+              <option>Legal Aid Partner</option>
+              <option>Community Advocate</option>
+              <option>Financial Supporter / Donor</option>
+              <option>Multiple Roles</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Anything else?</label><textarea name="message" placeholder="Tell us about your availability, skills, or what moves your heart about this mission..."></textarea></div>
+          <input type="hidden" name="_subject" value="Volunteer / Supporter Application"/>
+          <button type="submit" class="submit-btn purple">I'm In — Count Me In the Village</button>
+        </form>
+        <div class="success-msg" id="volunteerSuccess">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <strong>Welcome to the village!</strong><br/>We'll be in touch within 48 hours to get you started.
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ DONATE PAGE ═══ -->
+<div class="page" id="page-donate">
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-tag" style="background:var(--light-green);color:var(--green)">Donate</div>
+      <h2 class="section-title">Fund the Journey. Change a Family.</h2>
+      <p class="section-sub">Every dollar directly supports a father's path back to his children. No overhead surprises — your gift goes to work immediately.</p>
+      <div class="impact-grid">
+        <div class="impact-card"><div class="impact-amt">$25</div><div class="impact-desc">Fills a visitation bag with supplies and goodies for one visit</div></div>
+        <div class="impact-card"><div class="impact-amt">$50</div><div class="impact-desc">Provides transportation to 2 court dates or appointments</div></div>
+        <div class="impact-card"><div class="impact-amt">$100</div><div class="impact-desc">One week of case plan coaching and document support</div></div>
+        <div class="impact-card"><div class="impact-amt">$250</div><div class="impact-desc">One month of comprehensive support for one father</div></div>
+      </div>
+      <div class="form-wrap" style="margin-top:2rem">
+        <div class="form-title" style="margin-bottom:.5rem">Make a Donation</div>
+        <p class="form-sub">Choose an amount or enter your own. Every dollar matters.</p>
+        <div class="donate-amounts">
+          <button class="amount-btn active" onclick="setAmount(25,this)">$25</button>
+          <button class="amount-btn" onclick="setAmount(50,this)">$50</button>
+          <button class="amount-btn" onclick="setAmount(100,this)">$100</button>
+          <button class="amount-btn" onclick="setAmount(250,this)">$250</button>
+          <button class="amount-btn" onclick="setAmount(500,this)">$500</button>
+        </div>
+        <form id="donateForm" action="https://formspree.io/f/mjgqjljr" method="POST">
+          <div class="form-group"><label>Donation Amount *</label><input type="number" name="amount" id="donateAmount" value="25" min="1" required placeholder="Enter amount"/></div>
+          <div class="form-row">
+            <div class="form-group"><label>Your Name *</label><input type="text" name="name" required placeholder="Full name"/></div>
+            <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="your@email.com"/></div>
+          </div>
+          <div class="form-group"><label>Message (optional)</label><textarea name="message" placeholder="Why are you giving today? (optional)" style="min-height:70px"></textarea></div>
+          <input type="hidden" name="_subject" value="Donation — Fatherhood Engagement Hub"/>
+          <button type="submit" class="submit-btn green">Donate Now — Help a Father Come Home</button>
+        </form>
+        <div class="success-msg" id="donateSuccess">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <strong>Thank you for your generosity!</strong><br/>Your donation is making a real difference in a father's journey home.
+        </div>
+        <p style="text-align:center;font-size:.75rem;color:var(--muted);margin-top:1rem">Contributions to Daddy's Chariot Inc. are tax-deductible under 501(c)(3).<br/>Fatherhood Engagement Hub™ is a registered organization.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ CONTACT PAGE ═══ -->
+<div class="page" id="page-contact">
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-tag navy">Contact Us</div>
+      <h2 class="section-title">We're Here. Reach Out.</h2>
+      <p class="section-sub">No question is too small. No situation is too complicated. Reach out however is easiest for you.</p>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-info-card">
+            <div class="contact-method">
+              <div class="cm-icon" style="background:#e8eef8"><svg fill="none" stroke="#0d1f3c" stroke-width="2" width="20" height="20" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 5.95 5.95l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div>
+              <div><div class="cm-label">Call or Text</div><div class="cm-value"><a href="tel:+18005550000">(800) 555-0000</a><br/><span style="font-size:.75rem">Mon–Fri 8am–6pm · Sat 9am–3pm</span></div></div>
+            </div>
+            <div class="contact-method">
+              <div class="cm-icon" style="background:var(--light-green)"><svg fill="none" stroke="#2d6a2d" stroke-width="2" width="20" height="20" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div><div class="cm-label">Email</div><div class="cm-value"><a href="mailto:cascadoux1962@gmail.com">cascadoux1962@gmail.com</a><br/><span style="font-size:.75rem">Response within 24 hours</span></div></div>
+            </div>
+            <div class="contact-method">
+              <div class="cm-icon" style="background:var(--light-purple)"><svg fill="none" stroke="#2d1b4e" stroke-width="2" width="20" height="20" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+              <div><div class="cm-label">Father Portal</div><div class="cm-value"><a onclick="showPage('portal')" style="cursor:pointer">Submit a support request</a><br/><span style="font-size:.75rem">24-hour response guaranteed</span></div></div>
+            </div>
+            <div class="contact-method">
+              <div class="cm-icon" style="background:#fff8e8"><svg fill="none" stroke="#c8962a" stroke-width="2" width="20" height="20" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <div><div class="cm-label">Partner: Daddy's Chariot Inc.</div><div class="cm-value"><a href="https://daddyschariotinc.org" target="_blank">daddyschariotinc.org</a><br/><span style="font-size:.75rem">Non-profit logistics and field services</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-wrap" style="margin:0">
+          <div class="form-title" style="margin-bottom:.25rem">Send a Message</div>
+          <p class="form-sub">We'll get back to you within 24 hours.</p>
+          <form id="contactForm" action="https://formspree.io/f/mjgqjljr" method="POST">
+            <div class="form-row">
+              <div class="form-group"><label>Name *</label><input type="text" name="name" required placeholder="Your name"/></div>
+              <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="your@email.com"/></div>
+            </div>
+            <div class="form-group"><label>Subject *</label><select name="subject" required><option value="">What is this about?</option><option>I'm a father who needs help</option><option>I want to volunteer</option><option>I want to donate</option><option>Partnership inquiry</option><option>Media / Press</option><option>General question</option></select></div>
+            <div class="form-group"><label>Message *</label><textarea name="message" required placeholder="How can we help you?"></textarea></div>
+            <input type="hidden" name="_subject" value="Contact Form — Fatherhood Engagement Hub"/>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+          <div class="success-msg" id="contactSuccess">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <strong>Message sent!</strong><br/>We'll be in touch within 24 hours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Fatherhood Engagement Hub<span>™</span></h3>
+        <p>From father to dad — we are at your side in your journey. On your journey to fatherhood, we bring fatherhood to you.</p>
+        <div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap">
+          <a href="https://daddyschariotinc.org" target="_blank" style="color:var(--gold);font-size:.8rem;text-decoration:none">Daddy's Chariot Inc. →</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><button onclick="showPage('home')">Home</button></li>
+          <li><button onclick="showPage('about')">About Us</button></li>
+          <li><button onclick="showPage('portal')">Father Portal</button></li>
+          <li><button onclick="showPage('supporters')">Get Involved</button></li>
+          <li><button onclick="showPage('donate')">Donate</button></li>
+          <li><button onclick="showPage('contact')">Contact</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><button onclick="showPage('portal')">Transportation</button></li>
+          <li><button onclick="showPage('portal')">Housing Help</button></li>
+          <li><button onclick="showPage('portal')">Case Plan Support</button></li>
+          <li><button onclick="showPage('portal')">Employment</button></li>
+          <li><button onclick="showPage('portal')">Legal Support</button></li>
+          <li><button onclick="showPage('portal')">Visitation</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Fatherhood Engagement Hub™ · <a href="https://daddyschariotinc.org" target="_blank">Daddy's Chariot Inc.</a></div>
+      <div>Built with ♥ for every father's journey · <a href="mailto:cascadoux1962@gmail.com">cascadoux1962@gmail.com</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Page navigation
+const pages = ['home','about','portal','supporters','donate','contact'];
+function showPage(id) {
+  pages.forEach(p => {
+    document.getElementById('page-'+p).classList.remove('active');
+    const btn = document.getElementById('nav-'+p);
+    if(btn) btn.classList.remove('active');
+  });
+  document.getElementById('page-'+id).classList.add('active');
+  const btn = document.getElementById('nav-'+id);
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  closeMenu();
+}
+
+// Mobile menu
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// Donate amounts
+function setAmount(amt, btn) {
+  document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('donateAmount').value = amt;
+}
+
+// Search data
+const searchIndex = [
+  {icon:'🚗',title:'Transportation',desc:'Rides to court, appointments, work, visitation',page:'portal',tags:['ride','transport','car','drive','court','appointment','work']},
+  {icon:'🏠',title:'Housing Support',desc:'Emergency housing, transitional housing referrals',page:'portal',tags:['house','housing','shelter','home','rent','apartment','emergency']},
+  {icon:'📋',title:'Case Plan Help',desc:'DCF/Child Welfare case plan navigation and support',page:'portal',tags:['case','plan','dcf','welfare','child','court','compliance','document']},
+  {icon:'👁',title:'Visitation Support',desc:'Visitation bags and transportation to visits',page:'portal',tags:['visit','visitation','children','kids','see','bag']},
+  {icon:'💼',title:'Employment Help',desc:'Job placement, resume, GED, vocational training',page:'portal',tags:['job','work','employment','resume','ged','training','career']},
+  {icon:'⚖️',title:'Legal Support',desc:'Family court, legal aid, rights navigation',page:'portal',tags:['legal','lawyer','court','rights','attorney','law','entanglement']},
+  {icon:'💊',title:'Health & Wellness',desc:'Shower, grooming, mental health, medical referrals',page:'portal',tags:['health','wellness','shower','grooming','mental','medical','doctor']},
+  {icon:'🍎',title:'Food & Basic Needs',desc:'Food banks, SNAP, emergency food assistance',page:'portal',tags:['food','eat','hungry','snap','benefit','grocery','meal']},
+  {icon:'💛',title:'Donate',desc:'Support fathers financially — every dollar helps',page:'donate',tags:['donate','give','money','fund','support','contribution']},
+  {icon:'🙋',title:'Volunteer',desc:'Drive, mentor, advocate, or donate supplies',page:'supporters',tags:['volunteer','help','support','drive','mentor']},
+  {icon:'📞',title:'Contact Us',desc:'Call, email, or send a message directly',page:'contact',tags:['contact','call','email','message','talk','reach']},
+  {icon:'ℹ️',title:'About Us',desc:'Our mission and how we help fathers',page:'about',tags:['about','mission','who','organization','story']},
+];
+
+function handleSearch(val) {
+  const q = val.toLowerCase().trim();
+  const resultsEl = document.getElementById('searchResults');
+  if(!q){resultsEl.style.display='none';return;}
+  const matches = searchIndex.filter(item =>
+    item.title.toLowerCase().includes(q) ||
+    item.desc.toLowerCase().includes(q) ||
+    item.tags.some(t=>t.includes(q))
+  );
+  if(!matches.length){resultsEl.style.display='none';return;}
+  resultsEl.innerHTML = matches.slice(0,6).map(m=>`
+    <div class="search-result-item" onclick="showPage('${m.page}');closeSearch()">
+      <div class="sri-icon">${m.icon}</div>
+      <div><div class="sri-title">${m.title}</div><div class="sri-desc">${m.desc}</div></div>
+    </div>`).join('');
+  resultsEl.style.display='block';
+}
+
+function closeSearch(){
+  document.getElementById('searchResults').style.display='none';
+  document.getElementById('searchBox').value='';
+}
+
+// Form submissions
+function setupForm(formId, successId) {
+  const form = document.getElementById(formId);
+  if(!form) return;
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const orig = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const resp = await fetch(form.action, {
+        method:'POST',
+        body: new FormData(form),
+        headers:{Accept:'application/json'}
+      });
+      if(resp.ok){
+        form.style.display='none';
+        document.getElementById(successId).style.display='block';
+      } else {
+        btn.textContent = 'Error — Try Again';
+        btn.disabled = false;
+      }
+    } catch(err){
+      btn.textContent = orig;
+      btn.disabled = false;
+    }
+  });
+}
+
+setupForm('portalForm','portalSuccess');
+setupForm('volunteerForm','volunteerSuccess');
+setupForm('donateForm','donateSuccess');
+setupForm('contactForm','contactSuccess');
+</script>
+</body>
+</html>
